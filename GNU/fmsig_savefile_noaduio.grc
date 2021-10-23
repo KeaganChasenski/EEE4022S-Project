@@ -1,0 +1,151 @@
+options:
+  parameters:
+    author: Keagan Chasenski
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: fmsig_savefile_noaudio
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Direction Finding - Read FM signal to file
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [128, 44.0]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/pi/Desktop/Thesis/Testing/a2_data.iq
+    type: complex
+    unbuffered: 'False'
+    vlen: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 404.0]
+    rotation: 0
+    state: true
+- name: blocks_file_sink_0_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/pi/Desktop/Thesis/Testing/a1_data.iq
+    type: complex
+    unbuffered: 'False'
+    vlen: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 285]
+    rotation: 0
+    state: true
+- name: blocks_stream_to_vector_0
+  id: blocks_stream_to_vector
+  parameters:
+    affinity: ''
+    alias: vector_stream_antenna2
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [400, 432.0]
+    rotation: 0
+    state: true
+- name: blocks_stream_to_vector_0_0
+  id: blocks_stream_to_vector
+  parameters:
+    affinity: ''
+    alias: vector_stream_antenna1
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 312.0]
+    rotation: 0
+    state: true
+- name: limesdr_source_0
+  id: limesdr_source
+  parameters:
+    affinity: ''
+    alias: ''
+    allow_tcxo_dac: '0'
+    analog_bandw_ch0: 2e6
+    analog_bandw_ch1: 2e6
+    calibr_bandw_ch0: 2.5e6
+    calibr_bandw_ch1: 2.5e6
+    ch_align: 'False'
+    channel_mode: '2'
+    comment: ''
+    dacVal: '180'
+    digital_bandw_ch0: 2e6
+    digital_bandw_ch1: 2e6
+    filename: /home/pi/Desktop/Thesis/Testing/rf
+    gain_dB_ch0: '45'
+    gain_dB_ch1: '45'
+    lna_path_ch0: '2'
+    lna_path_ch1: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nco_freq_ch0: '0'
+    nco_freq_ch1: '0'
+    oversample: '0'
+    rf_freq: 150e6
+    samp_rate: 20e6
+    serial: 000907060246091F
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [135, 356]
+    rotation: 0
+    state: true
+
+connections:
+- [blocks_stream_to_vector_0, '0', blocks_file_sink_0, '0']
+- [blocks_stream_to_vector_0_0, '0', blocks_file_sink_0_0, '0']
+- [limesdr_source_0, '0', blocks_stream_to_vector_0_0, '0']
+- [limesdr_source_0, '1', blocks_stream_to_vector_0, '0']
+
+metadata:
+  file_format: 1
